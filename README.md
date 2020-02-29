@@ -1,6 +1,6 @@
 # TF-IDF Algorithm
 
-##### Henrique David de Medeiros
+##### [Henrique David de Medeiros](#author)
 
 The TF-IDF is an information retrieval technique to weigh a keyword and assign the importance of it based on the number of times that the keyword appears in documents. 
 
