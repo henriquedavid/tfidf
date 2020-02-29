@@ -21,6 +21,6 @@ The TF-IDF is an algorithm that can make magic if you have some business, you ca
 
 ## Author
 
-Henrique David de Medeiros
-IT and Computer Science Student. IT Technician (since 2016).
+Henrique David de Medeiros\\
+IT and Computer Science Student. IT Technician (since 2016)\\
 Email: _henriquemed101@gmail.com_
