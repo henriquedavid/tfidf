@@ -28,33 +28,40 @@ public class TFIDF {
 	
 	public void readFile() {
 		try {
-			File folder = new File("./res/");
-			List<File> files = Arrays.asList(folder.listFiles());
+			BufferedReader bf;
+			File folder = new File("./res/test.csv");
+			//List<File> files = Arrays.asList(folder.listFiles());
 			int doc_int = 0;
-			qnt_docs = files.size();
-			for(File f : files) {
-				BufferedReader bf = new BufferedReader(new FileReader(f));
+			//qnt_docs = files.size();
+			//for(File f : files) {
+				bf = new BufferedReader(new FileReader(folder));
 			
 				String st;
 			
 				// Reading line by line.
 				while((st = bf.readLine()) != null) {
-					String [] lista = splitWord(st);
-					for(String v_ : lista) {
-						add(v_, doc_int);
+					
+					String [] data_ = st.split(",");
+					for(String o : data_) {
+						String [] lista = splitWord(o);
+						for(String v_ : lista) {
+							add(v_, doc_int);
+						}
 					}
 				}
 				
-				if(doc_int+1 < files.size())
-					addColuna();
+				//if(doc_int+1 < files.size())
+				//	addColuna();
 				
 				doc_int++;
-			}
+			//}
 			
 			System.out.println("VALOR = QNT REP");
 			for( Map.Entry<String, List<Integer>> v_ : tf.entrySet() ) {
 				System.out.println(v_.getKey() + " = " + v_.getValue());
 			}
+			
+			bf.close();
 			
 		} catch(IOException e) {
 			System.out.println("ERRO: " + e );
@@ -100,7 +107,7 @@ public class TFIDF {
 			List<Double> calculos = new ArrayList<Double>();
 			double idf_ = idf(v_.getKey());
 			for(Integer c_ : v_.getValue()) {
-				double calculo = c_ * idf_;
+				double calculo = (double) c_ * idf_;
 				calculos.add(calculo);
 			}
 			weight_words.put(v_.getKey(), calculos);
@@ -111,19 +118,19 @@ public class TFIDF {
 		return weight_words;
 	}
 	
-	private int qntDocTerm(String term) {
+	private double qntDocTerm(String term) {
 		int qnt = 0;
 		List<Integer> l_ = tf.get(term);
 		for(int i = 0; i < l_.size(); i++) {
 			if(l_.get(i) != 0)
 				qnt++;
 		}
-		return qnt;
+		return (double) qnt;
 	}
 	
 	private double idf(String key_) {
 		double qnt = qntDocTerm(key_);
 		double div = qnt_docs/qnt;
-		return Math.log10(div);
+		return Math.log10(1.0);
 	}
 }
