@@ -29,12 +29,12 @@ public class TFIDF {
 	public void readFile() {
 		try {
 			BufferedReader bf;
-			File folder = new File("./res/test_.csv");
-			//List<File> files = Arrays.asList(folder.listFiles());
+			File folder = new File("./res/");
+			List<File> files = Arrays.asList(folder.listFiles());
 			int doc_int = 0;
-			//qnt_docs = files.size();
-			//for(File f : files) {
-				bf = new BufferedReader(new FileReader(folder));
+			qnt_docs = files.size();
+			for(File f : files) {
+				bf = new BufferedReader(new FileReader(f));
 			
 				String st;
 			
@@ -50,18 +50,18 @@ public class TFIDF {
 					}
 				}
 				
-				//if(doc_int+1 < files.size())
-				//	addColuna();
+				if(doc_int+1 < files.size())
+					addColuna();
 				
 				doc_int++;
-			//}
+				
+				bf.close();
+			}
 			
 			System.out.println("VALOR = QNT REP");
 			for( Map.Entry<String, List<Integer>> v_ : tf.entrySet() ) {
 				System.out.println(v_.getKey() + " = " + v_.getValue());
 			}
-			
-			bf.close();
 			
 		} catch(IOException e) {
 			System.out.println("ERRO: " + e );
@@ -133,7 +133,7 @@ public class TFIDF {
 	private double idf(String key_) {
 		double qnt = qntDocTerm(key_);
 		// Não pode ser testado com apenas um arquivo, pois o log será 0.
-		double div = 1/qnt;
+		double div = qnt_docs/qnt;
 		return Math.log10(div);
 	}
 }
