@@ -29,7 +29,7 @@ public class TFIDF {
 	public void readFile() {
 		try {
 			BufferedReader bf;
-			File folder = new File("./res/test.csv");
+			File folder = new File("./res/test_.csv");
 			//List<File> files = Arrays.asList(folder.listFiles());
 			int doc_int = 0;
 			//qnt_docs = files.size();
@@ -101,6 +101,8 @@ public class TFIDF {
 			tf.put(v_.getKey(), a);
 		}
 	}
+	
+	
 
 	public void calculate_weight() {
 		for( Map.Entry<String, List<Integer>> v_ : tf.entrySet() ) {
@@ -130,7 +132,8 @@ public class TFIDF {
 	
 	private double idf(String key_) {
 		double qnt = qntDocTerm(key_);
-		double div = qnt_docs/qnt;
-		return Math.log10(1.0);
+		// Não pode ser testado com apenas um arquivo, pois o log será 0.
+		double div = 1/qnt;
+		return Math.log10(div);
 	}
 }
